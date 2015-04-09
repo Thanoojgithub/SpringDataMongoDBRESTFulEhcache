@@ -16,14 +16,16 @@
     disk cache, which in this configuration will go to wherever java.io.tmp is
     defined on your system. On a standard Linux system this will be /tmp" -->
 	<cache name="customerServiceCache" 
-		maxEntriesLocalHeap="10000"
-		maxEntriesLocalDisk="1000" 
+		maxEntriesLocalHeap="7000"
+		maxEntriesLocalDisk="10000" 
 		eternal="false" 
 		diskSpoolBufferSizeMB="20"
-		timeToIdleSeconds="300" timeToLiveSeconds="600"
-		memoryStoreEvictionPolicy="LFU" 
+		overflowToDisk="true"
+		diskPersistent="true"
+		timeToIdleSeconds="300"
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="LFU"
 		transactionalMode="off">
-		<persistence strategy="localTempSwap" />
 	</cache>
  
 </ehcache>
