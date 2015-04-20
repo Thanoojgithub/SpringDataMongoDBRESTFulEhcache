@@ -21,7 +21,7 @@
 		<property name="configLocation" value="WEB-INF/config/ehcache.xml" />
 		<property name="shared" value="true" />
 	</bean>
-	<jaxrs:server id="services" address="/">
+	<jaxrs:server id="services" address="/customerService">
 		<jaxrs:serviceBeans>
 			<ref bean="customerService" />
 		</jaxrs:serviceBeans>
