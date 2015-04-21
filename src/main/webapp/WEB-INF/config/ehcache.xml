@@ -1,5 +1,5 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd" 
-		updateCheck="true"  monitoring="autodetect" dynamicConfig="true">
+		updateCheck="false"  monitoring="autodetect" dynamicConfig="true">
  
 	<!-- By default, Ehcache stored the cached files in temp folder. -->
 	<diskStore path="java.io.tmpdir" />
