@@ -2,10 +2,10 @@
 		updateCheck="false"  monitoring="autodetect" dynamicConfig="true">
  
 	<!-- By default, Ehcache stored the cached files in temp folder. -->
-	<diskStore path="java.io.tmpdir" />
+	<!-- <diskStore path="java.io.tmpdir" /> -->
  
 	<!-- Ask Ehcache to store cache in this path -->
-	<!-- <diskStore path="c:\\cache" /> -->
+	<diskStore path="C:\\cache" />
  
 	<!-- Sample cache named cache1
     This cache contains a maximum in memory of 10000 elements, and will expire
@@ -16,16 +16,16 @@
     disk cache, which in this configuration will go to wherever java.io.tmp is
     defined on your system. On a standard Linux system this will be /tmp" -->
 	<cache name="customerServiceCache" 
-		maxEntriesLocalHeap="7000"
-		maxEntriesLocalDisk="10000" 
-		eternal="false" 
-		diskSpoolBufferSizeMB="20"
-		overflowToDisk="true"
-		diskPersistent="true"
-		timeToIdleSeconds="300"
-		timeToLiveSeconds="600"
-		memoryStoreEvictionPolicy="LFU"
-		transactionalMode="off">
+		maxElementsInMemory="2"
+         eternal="false"
+         timeToIdleSeconds="60"
+         timeToLiveSeconds="60"
+         overflowToDisk="true"
+         maxElementsOnDisk="3"
+         diskPersistent="false"
+         diskExpiryThreadIntervalSeconds="60"
+         memoryStoreEvictionPolicy="LFU"
+         statistics="true">
 	</cache>
  
 </ehcache>
