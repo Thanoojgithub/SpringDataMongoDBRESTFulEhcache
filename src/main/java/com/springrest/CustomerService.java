@@ -6,7 +6,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import net.sf.ehcache.statistics.StatisticsGateway;
+
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Path("/services")
@@ -14,21 +17,35 @@ public interface CustomerService {
 	
 	public static final String MEDIATYPE_CHARSET = MediaType.APPLICATION_JSON + ";charset=utf-8";
 
-    @GET
+    /*@GET
+    @Async
     @Path("/sayHello")
     @Produces(MEDIATYPE_CHARSET)
     @Cacheable(value = "customerServiceCache", key = "#name")
-    public String sayHello(@QueryParam("name") String name);
+    public @ResponseBody Future<String> sayHello(@QueryParam("name") String name);
+    */
     
+	@GET
+    @Path("/sayHello")
+    @Produces(MEDIATYPE_CHARSET)
+    @Cacheable(value = "customerServiceCache", key = "#name")
+    public @ResponseBody String sayHello(@QueryParam("name") String name);
+	
     @GET
     @Path("/sayBye")
     @Produces(MEDIATYPE_CHARSET)
     @Cacheable(value = "customerServiceCache", key = "#name")
-    public String sayBye(@QueryParam("name") String name);
+    public @ResponseBody String sayBye(@QueryParam("name") String name);
     
     @GET
     @Path("/beInTouch")
     @Produces(MEDIATYPE_CHARSET)
     @Cacheable(value = "customerServiceCache", key = "#email")
-    public String beInTouch(@QueryParam("email") String email);
+    public @ResponseBody String beInTouch(@QueryParam("email") String email);
+    
+    @GET
+    @Path("/statistics")
+    public void getCacheStatistics();
+    
+    
 }
