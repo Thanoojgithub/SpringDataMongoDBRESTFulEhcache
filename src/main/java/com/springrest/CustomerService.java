@@ -6,8 +6,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import net.sf.ehcache.statistics.StatisticsGateway;
-
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
