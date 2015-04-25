@@ -1,22 +1,19 @@
 package com.springrest;
 
 import java.util.Calendar;
+import java.util.List;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Status;
 import net.sf.ehcache.statistics.StatisticsGateway;
 
+import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.springrest.vo.User;
@@ -27,11 +24,12 @@ public class CustomerServiceImpl implements CustomerService {
 	final static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
 	@Autowired
-	private CacheManager cacheManager;
+	private CustomerRepositoryImpl customerRepositoryImpl;
 	
 	@Autowired
-	private MongoOperations mongoOperations;
-
+	private CacheManager cacheManager;
+	
+	@Override
 	public String sayHello(String name) {
 		logger.debug("sayHello before sleep : " + name + " at : "+ Calendar.getInstance().getTime());
 		try {
@@ -45,42 +43,42 @@ public class CustomerServiceImpl implements CustomerService {
 		return str;
 	}
 
-	public void getCacheStatistics() {
+	@Override
+	public String getCacheStatistics() {
+		String reflectionToString = "cache not yet created";
 		Cache cache = this.cacheManager.getCache("customerServiceCache");
 		if (null != cache && Status.STATUS_ALIVE.equals(cache.getStatus())) {
 			StatisticsGateway statistics = cache.getStatistics();
-			ToStringBuilder.reflectionToString(statistics,ToStringStyle.MULTI_LINE_STYLE);
+			reflectionToString = 
+			ToStringBuilder.reflectionToString(statistics.getAssociatedCacheName(),RecursiveToStringStyle.JSON_STYLE)
+			+ "----------||----------" + ToStringBuilder.reflectionToString(statistics.getCore(),RecursiveToStringStyle.JSON_STYLE)
+			+ "----------||----------" + ToStringBuilder.reflectionToString(statistics.getExtended(),RecursiveToStringStyle.JSON_STYLE);
 		}
-		
+		return reflectionToString;
 	}
 	
 	@Override
-	public User getUser(String id) {
-		return mongoOperations.findById(id, User.class);
+	public User getUser(Long id) {
+		return customerRepositoryImpl.findOne(id);
 	}
 	
 	@Override
-	public User deleteUser(String id) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("id").is(id));
-		User findAndRemove = mongoOperations.findAndRemove(query, User.class);
-		return findAndRemove;
+	public Boolean deleteUser(Long id) {
+		return customerRepositoryImpl.delete(id);
 	}
 
 	@Override
-	public User upsertUser(String id, String firstName, String lastName, String location) {
-		System.out.println("upsertUser :: "+id + " "+firstName +" "+lastName+" "+location);
-		Query query = new Query();
-		query.addCriteria(Criteria.where("id").is(id));
-		Update update = new Update();
-		update.set("id", id);
-		update.set("firstName", firstName);
-		update.set("lastName", lastName);
-		update.set("location", location);
-		System.out.println(query + " "+update);
-		mongoOperations.upsert(query, update, User.class);
-		User user= mongoOperations.findById(id, User.class);
-		System.out.println("user :: " + user);
-		return user;
+	public void upsertUser(Long id, String firstName, String lastName, String location) {
+		User persisted = new User();
+		persisted.setId(id);
+		persisted.setFirstName(firstName);
+		persisted.setLastName(lastName);
+		persisted.setLocation(location);
+		customerRepositoryImpl.save(persisted);
+	}
+
+	@Override
+	public List<User> getUsers() {
+		return customerRepositoryImpl.findAll();
 	}
 }
