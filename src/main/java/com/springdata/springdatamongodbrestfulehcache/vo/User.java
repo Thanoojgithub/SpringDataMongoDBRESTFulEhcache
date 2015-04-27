@@ -1,4 +1,4 @@
-package com.springrest.vo;
+package com.springdata.springdatamongodbrestfulehcache.vo;
 
 import java.io.Serializable;
 
@@ -11,10 +11,10 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private Long id;
-	private String firstName;
-	private String lastName;
-	private String location;
+	protected Long id;
+	protected String firstName;
+	protected String lastName;
+	protected String location;
 
 	public Long getId() {
 		return id;

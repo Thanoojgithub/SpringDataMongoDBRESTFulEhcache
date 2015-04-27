@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.springrest.springrestone</groupId>
-	<artifactId>SpringRestOne</artifactId>
+	<groupId>com.springdata.springdatamongodbrestfulehcache</groupId>
+	<artifactId>SpringDataMongoDBRESTFulEhcache</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<properties>
@@ -93,7 +93,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>SpringRestOne</finalName>
+		<finalName>SpringDataMongoDBRESTFulEhcache</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

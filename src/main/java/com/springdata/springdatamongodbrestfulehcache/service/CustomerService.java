@@ -1,4 +1,4 @@
-package com.springrest;
+package com.springdata.springdatamongodbrestfulehcache.service;
 /**
  * to do CRUD operations on User document/table - entity in general. 
  */
@@ -13,12 +13,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.springrest.vo.User;
+import com.springdata.springdatamongodbrestfulehcache.vo.SavedUser;
+import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
 @Path("/services")
-@RestController
 public interface CustomerService {
 
 	public static final String MEDIATYPE_CHARSET = MediaType.APPLICATION_JSON + ";charset=utf-8";
@@ -32,27 +32,27 @@ public interface CustomerService {
 	@Path("/sayHello")
 	@Produces(MEDIATYPE_CHARSET)
 	@Cacheable(value = "customerServiceCache", key = "#name")
-	public String sayHello(@QueryParam("name") String name);
+	public @ResponseBody String sayHello(@QueryParam("name") String name);
 
 	@GET
 	@Path("/getUser")
 	@Produces(MEDIATYPE_CHARSET)
-	public User getUser(@QueryParam("id") Long id);
+	public @ResponseBody User getUser(@QueryParam("id") Long id);
 	
 	@GET
 	@Path("/getUsers")
 	@Produces(MEDIATYPE_CHARSET)
-	public List<User> getUsers();
+	public @ResponseBody List<User> getUsers();
 
 	@DELETE
 	@Path("/deleteUser")
 	@Produces(MEDIATYPE_CHARSET)
-	public Boolean deleteUser(@QueryParam("id") Long id);
+	public @ResponseBody void deleteUser(@QueryParam("id") Long id);
 
 	@PUT
 	@Path("/upsertUser")
 	@Produces(MEDIATYPE_CHARSET)
-	public void upsertUser(@QueryParam("id")Long id, @QueryParam("firstName")String firstName, @QueryParam("lastName")String lastName, @QueryParam("location")String location);
+	public @ResponseBody SavedUser upsertUser(@QueryParam("id")Long id, @QueryParam("firstName")String firstName, @QueryParam("lastName")String lastName, @QueryParam("location")String location);
 
 	/**
 	 * to get cache details, TO-DO : need to work more on it.
@@ -61,6 +61,6 @@ public interface CustomerService {
 	@GET
 	@Path("/statistics")
 	@Produces(MEDIATYPE_CHARSET)
-	public String getCacheStatistics();
+	public @ResponseBody String getCacheStatistics();
 
 }

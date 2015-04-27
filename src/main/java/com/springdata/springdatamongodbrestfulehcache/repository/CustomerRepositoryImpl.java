@@ -1,4 +1,4 @@
-package com.springrest;
+package com.springdata.springdatamongodbrestfulehcache.repository;
 
 import java.util.List;
 
@@ -6,22 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-import com.springrest.vo.User;
+import com.springdata.springdatamongodbrestfulehcache.vo.SavedUser;
+import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
-@Repository
+@Component
 public class CustomerRepositoryImpl implements CustomerRepository {
 
 	@Autowired
 	private MongoOperations mongoOperations;
-	
+
 	@Override
-	public Boolean delete(Long id) {
+	public void delete(Long id) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("id").is(id));
-		User findAndRemove = mongoOperations.findAndRemove(query, User.class);
-		return findAndRemove.getId() != null ? true : false;
+		mongoOperations.findAndRemove(query, SavedUser.class);
 	}
 
 	@Override
@@ -37,8 +37,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 	}
 
 	@Override
-	public void save(User persisted) {
+	public SavedUser save(SavedUser persisted) {
 		mongoOperations.save(persisted);
+		return persisted;
 	}
 
 }

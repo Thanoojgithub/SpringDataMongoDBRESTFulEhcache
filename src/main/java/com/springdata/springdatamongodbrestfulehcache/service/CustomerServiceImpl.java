@@ -1,4 +1,4 @@
-package com.springrest;
+package com.springdata.springdatamongodbrestfulehcache.service;
 
 import java.util.Calendar;
 import java.util.List;
@@ -14,17 +14,19 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import com.springrest.vo.User;
+import com.springdata.springdatamongodbrestfulehcache.repository.CustomerRepositoryImpl;
+import com.springdata.springdatamongodbrestfulehcache.vo.SavedUser;
+import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
-@Component
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
 	final static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
 	@Autowired
-	private CustomerRepositoryImpl customerRepositoryImpl;
+	private CustomerRepositoryImpl customerRepositoryImpl1;
 	
 	@Autowired
 	private CacheManager cacheManager;
@@ -57,28 +59,32 @@ public class CustomerServiceImpl implements CustomerService {
 		return reflectionToString;
 	}
 	
+	
+	/* CRUD operations using MongoDB */
+	
 	@Override
 	public User getUser(Long id) {
-		return customerRepositoryImpl.findOne(id);
+		return customerRepositoryImpl1.findOne(id);
 	}
 	
 	@Override
-	public Boolean deleteUser(Long id) {
-		return customerRepositoryImpl.delete(id);
+	public void deleteUser(Long id) {
+		customerRepositoryImpl1.delete(id);
 	}
 
 	@Override
-	public void upsertUser(Long id, String firstName, String lastName, String location) {
-		User persisted = new User();
+	public SavedUser upsertUser(Long id, String firstName, String lastName, String location) {
+		SavedUser persisted = new SavedUser();
 		persisted.setId(id);
 		persisted.setFirstName(firstName);
 		persisted.setLastName(lastName);
 		persisted.setLocation(location);
-		customerRepositoryImpl.save(persisted);
+		SavedUser save = customerRepositoryImpl1.save(persisted);
+		return save;
 	}
 
 	@Override
 	public List<User> getUsers() {
-		return customerRepositoryImpl.findAll();
+		return customerRepositoryImpl1.findAll();
 	}
 }

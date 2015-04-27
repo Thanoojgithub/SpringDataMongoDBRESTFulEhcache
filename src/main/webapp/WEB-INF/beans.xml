@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
 	xmlns:cache="http://www.springframework.org/schema/cache"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
@@ -12,8 +13,11 @@
 
 	<context:annotation-config />
 	<cache:annotation-driven />
-	<context:component-scan base-package="com.springrest" />
-	<bean id="customerService" class="com.springrest.CustomerServiceImpl" />
+	<context:property-placeholder location="classpath:mongo.properties" />
+	<context:component-scan base-package="com.springdata.springdatamongodbrestfulehcache" />
+
+	<bean id="customerService" class="com.springdata.springdatamongodbrestfulehcache.service.CustomerServiceImpl" />
+
 	<!-- CACHE CONFIGURATION -->
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="ehcache" />
@@ -32,12 +36,11 @@
 		</jaxrs:providers>
 	</jaxrs:server>
 
+	<!-- JMX for ehcache - use JDK's JConsole to view EHcache statistics -->
 	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
 		<property name="locateExistingServerIfPossible" value="true" />
 	</bean>
-	<!-- JMX for ehcache -->
-	<bean id="managementService" class="net.sf.ehcache.management.ManagementService"
-		init-method="init" destroy-method="dispose">
+	<bean id="managementService" class="net.sf.ehcache.management.ManagementService" init-method="init" destroy-method="dispose">
 		<constructor-arg ref="ehcache" />
 		<constructor-arg ref="mbeanServer" />
 		<constructor-arg index="2" value="true" />
@@ -46,9 +49,13 @@
 		<constructor-arg index="5" value="true" />
 	</bean>
 	
-	<mongo:mongo host="127.0.0.1" port="27017" />
-	<mongo:db-factory dbname="test" />
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 	</bean>
+	
+	<mongo:mongo host="${mongo.host}" port="${mongo.port}"/>
+	<mongo:db-factory dbname="${mongo.dbname}" mongo-ref="mongo" />
+	
+	<!-- Use this post processor to translate any MongoExceptions thrown in @Repository annotated classes -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 </beans>
