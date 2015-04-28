@@ -51,8 +51,8 @@ public class CustomerServiceImpl implements CustomerService {
 			StatisticsGateway statistics = cache.getStatistics();
 			reflectionToString = 
 			ToStringBuilder.reflectionToString(statistics.getAssociatedCacheName(),RecursiveToStringStyle.JSON_STYLE)
-			+ "----------||----------" + ToStringBuilder.reflectionToString(statistics.getCore(),RecursiveToStringStyle.JSON_STYLE)
-			+ "----------||----------" + ToStringBuilder.reflectionToString(statistics.getExtended(),RecursiveToStringStyle.JSON_STYLE);
+			+ "----------||----------" + ToStringBuilder.reflectionToString(statistics.getCore(), RecursiveToStringStyle.JSON_STYLE)
+			+ "----------||----------" + ToStringBuilder.reflectionToString(statistics.getExtended(), RecursiveToStringStyle.JSON_STYLE);
 		}
 		return reflectionToString;
 	}
