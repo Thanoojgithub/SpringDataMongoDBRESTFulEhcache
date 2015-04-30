@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.springdata.springdatamongodbrestfulehcache.vo.SavedUser;
 import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
 @Path("/services")
@@ -52,7 +51,7 @@ public interface CustomerService {
 	@PUT
 	@Path("/upsertUser")
 	@Produces(MEDIATYPE_CHARSET)
-	public @ResponseBody SavedUser upsertUser(@QueryParam("id")Long id, @QueryParam("firstName")String firstName, @QueryParam("lastName")String lastName, @QueryParam("location")String location);
+	public @ResponseBody User upsertUser(@QueryParam("id")Long id, @QueryParam("firstName")String firstName, @QueryParam("lastName")String lastName, @QueryParam("location")String location);
 
 	/**
 	 * to get cache details, TO-DO : need to work more on it.

@@ -9,11 +9,11 @@
 		</layout>
 	</appender>
  
-	<logger name="com.springdata.springdatamongodbrestfulehcache" level="TRACE" additivity="false">
+	<logger name="com.springdata.springdatamongodbrestfulehcache" level="INFO" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
  
-	<root level="TRACE">
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 	</root>
  

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.repository.Repository;
 
-import com.springdata.springdatamongodbrestfulehcache.vo.SavedUser;
 import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
 public interface CustomerRepository extends Repository<User, Long> {
@@ -15,5 +14,5 @@ public interface CustomerRepository extends Repository<User, Long> {
 
 	User findOne(Long id);
 
-	SavedUser save(SavedUser persisted);
+	User save(User persisted);
 }

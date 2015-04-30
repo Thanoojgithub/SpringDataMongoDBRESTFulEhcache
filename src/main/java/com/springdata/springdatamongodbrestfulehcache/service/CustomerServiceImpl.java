@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springdata.springdatamongodbrestfulehcache.repository.CustomerRepositoryImpl;
-import com.springdata.springdatamongodbrestfulehcache.vo.SavedUser;
 import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
 @Service
@@ -26,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
 	final static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
 	@Autowired
-	private CustomerRepositoryImpl customerRepositoryImpl1;
+	private CustomerRepositoryImpl customerRepositoryImpl;
 	
 	@Autowired
 	private CacheManager cacheManager;
@@ -64,27 +63,27 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public User getUser(Long id) {
-		return customerRepositoryImpl1.findOne(id);
+		return customerRepositoryImpl.findOne(id);
 	}
 	
 	@Override
 	public void deleteUser(Long id) {
-		customerRepositoryImpl1.delete(id);
+		customerRepositoryImpl.delete(id);
 	}
 
 	@Override
-	public SavedUser upsertUser(Long id, String firstName, String lastName, String location) {
-		SavedUser persisted = new SavedUser();
+	public User upsertUser(Long id, String firstName, String lastName, String location) {
+		User persisted = new User();
 		persisted.setId(id);
 		persisted.setFirstName(firstName);
 		persisted.setLastName(lastName);
 		persisted.setLocation(location);
-		SavedUser save = customerRepositoryImpl1.save(persisted);
+		User save = customerRepositoryImpl.save(persisted);
 		return save;
 	}
 
 	@Override
 	public List<User> getUsers() {
-		return customerRepositoryImpl1.findAll();
+		return customerRepositoryImpl.findAll();
 	}
 }
