@@ -3,6 +3,7 @@ package com.springdata.springdatamongodbrestfulehcache.repository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -12,15 +13,16 @@ import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
 @Component
 public class CustomerRepositoryImpl implements CustomerRepository {
-
+	
 	@Autowired
+	@Qualifier("mongoTemplate")
 	private MongoOperations mongoOperations;
 
 	@Override
-	public void delete(Long id) {
+	public User delete(Long id) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("id").is(id));
-		mongoOperations.findAndRemove(query, User.class);
+		return mongoOperations.findAndRemove(query, User.class);
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
 public interface CustomerRepository extends Repository<User, Long> {
 
-	void delete(Long id);
+	User delete(Long id);
 
 	List<User> findAll();
 

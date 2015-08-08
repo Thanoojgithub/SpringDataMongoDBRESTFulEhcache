@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence-unit name="cutomerService-mongo-ogm">
+    <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+    <class>com.springrest.vo.User</class>
+    <properties>
+        <property name="hibernate.ogm.datastore.provider" value="org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider"/>
+        <property name="hibernate.ogm.mongodb.database" value="hibernate-ogm-test"/>
+        <property name="hibernate.ogm.mongodb.host" value="localhost"/>
+        <property name="hibernate.search.default.directory_provider" value="filesystem"/>
+        <property name="hibernate.search.default.indexBase" value="/tmp/.hibernate_ogm_demo_luceneindexes"/>
+    </properties>
+</persistence-unit>
+</persistence>

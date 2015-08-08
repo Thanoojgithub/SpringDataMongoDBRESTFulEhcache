@@ -15,7 +15,7 @@
     If there are more than 10000 elements it will overflow to the
     disk cache, which in this configuration will go to wherever java.io.tmp is
     defined on your system. On a standard Linux system this will be /tmp" -->
-	<cache name="customerServiceCache" 
+	<cache name="userServiceCache" 
 		 maxElementsInMemory="2"
 		 maxElementsOnDisk="3"
          eternal="false"

@@ -63,27 +63,26 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public User getUser(Long id) {
+		logger.info("CustomerServiceImpl.getUser()");
 		return customerRepositoryImpl.findOne(id);
 	}
 	
 	@Override
-	public void deleteUser(Long id) {
-		customerRepositoryImpl.delete(id);
+	public User deleteUser(Long id) {
+		logger.info("CustomerServiceImpl.deleteUser()");
+		return customerRepositoryImpl.delete(id);
 	}
 
 	@Override
-	public User upsertUser(Long id, String firstName, String lastName, String location) {
-		User persisted = new User();
-		persisted.setId(id);
-		persisted.setFirstName(firstName);
-		persisted.setLastName(lastName);
-		persisted.setLocation(location);
-		User save = customerRepositoryImpl.save(persisted);
-		return save;
+	public User upsertUser(User user) {
+		logger.info("CustomerServiceImpl.upsertUser()");
+		User persisted = customerRepositoryImpl.save(user);
+		return persisted;
 	}
 
 	@Override
 	public List<User> getUsers() {
+		logger.info("CustomerServiceImpl.getUsers()");
 		return customerRepositoryImpl.findAll();
 	}
 }
