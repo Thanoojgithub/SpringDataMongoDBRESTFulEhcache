@@ -3,11 +3,6 @@ package com.springdata.springdatamongodbrestfulehcache.service;
 import java.util.Calendar;
 import java.util.List;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Status;
-import net.sf.ehcache.statistics.StatisticsGateway;
-
 import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.text.WordUtils;
@@ -18,6 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.springdata.springdatamongodbrestfulehcache.repository.UserRepositoryImpl;
 import com.springdata.springdatamongodbrestfulehcache.vo.User;
+
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Status;
+import net.sf.ehcache.statistics.StatisticsGateway;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -85,4 +85,5 @@ public class UserServiceImpl implements UserService {
 		logger.info("UserServiceImpl.getUsers()");
 		return UserRepositoryImpl.findAll();
 	}
+	
 }
