@@ -1,5 +1,5 @@
-# Spring4 RESTFul + MongoDB CRUD operations + Ehcache
-Spring4 RESTFul + MongoDB CRUD operations + Ehcache
+# Spring Data MongoDB + RESTFul + Ehcache
+Spring Data MongoDB + RESTFul + Ehcache
 
 
 Postman URL for testing REST services ::
