@@ -6,7 +6,7 @@ import org.springframework.data.repository.Repository;
 
 import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
-public interface CustomerRepository extends Repository<User, Long> {
+public interface UserRepository extends Repository<User, Long> {
 
 	User delete(Long id);
 

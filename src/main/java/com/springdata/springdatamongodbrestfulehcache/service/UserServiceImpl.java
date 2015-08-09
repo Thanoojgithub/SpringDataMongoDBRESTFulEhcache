@@ -16,16 +16,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springdata.springdatamongodbrestfulehcache.repository.CustomerRepositoryImpl;
+import com.springdata.springdatamongodbrestfulehcache.repository.UserRepositoryImpl;
 import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
-@Service
-public class CustomerServiceImpl implements CustomerService {
+@Service("userService")
+public class UserServiceImpl implements UserService {
 
-	final static Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+	final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
-	private CustomerRepositoryImpl customerRepositoryImpl;
+	private UserRepositoryImpl UserRepositoryImpl;
 	
 	@Autowired
 	private CacheManager cacheManager;
@@ -47,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public String getCacheStatistics() {
 		String reflectionToString = "cache not yet created";
-		Cache cache = this.cacheManager.getCache("customerServiceCache");
+		Cache cache = this.cacheManager.getCache("UserServiceCache");
 		if (null != cache && Status.STATUS_ALIVE.equals(cache.getStatus())) {
 			StatisticsGateway statistics = cache.getStatistics();
 			reflectionToString = 
@@ -63,26 +63,26 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public User getUser(Long id) {
-		logger.info("CustomerServiceImpl.getUser()");
-		return customerRepositoryImpl.findOne(id);
+		logger.info("UserServiceImpl.getUser()");
+		return UserRepositoryImpl.findOne(id);
 	}
 	
 	@Override
 	public User deleteUser(Long id) {
-		logger.info("CustomerServiceImpl.deleteUser()");
-		return customerRepositoryImpl.delete(id);
+		logger.info("UserServiceImpl.deleteUser()");
+		return UserRepositoryImpl.delete(id);
 	}
 
 	@Override
 	public User upsertUser(User user) {
-		logger.info("CustomerServiceImpl.upsertUser()");
-		User persisted = customerRepositoryImpl.save(user);
+		logger.info("UserServiceImpl.upsertUser()");
+		User persisted = UserRepositoryImpl.save(user);
 		return persisted;
 	}
 
 	@Override
 	public List<User> getUsers() {
-		logger.info("CustomerServiceImpl.getUsers()");
-		return customerRepositoryImpl.findAll();
+		logger.info("UserServiceImpl.getUsers()");
+		return UserRepositoryImpl.findAll();
 	}
 }

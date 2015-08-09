@@ -3,8 +3,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>customerzoomsrv-client</artifactId>
-    <groupId>com.hibu.customerzoom</groupId>
+    <artifactId>UserService-client</artifactId>
+    <groupId>com.springdata.springdatamongodbrestfulehcache</groupId>
     <version>1.0.1-SNAPSHOT</version>
 
     <properties>

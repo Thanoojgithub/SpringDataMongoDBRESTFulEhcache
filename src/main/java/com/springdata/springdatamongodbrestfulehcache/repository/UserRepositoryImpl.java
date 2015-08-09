@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
 @Component
-public class CustomerRepositoryImpl implements CustomerRepository {
+public class UserRepositoryImpl implements UserRepository {
 	
 	@Autowired
 	@Qualifier("mongoTemplate")

@@ -14,9 +14,6 @@
 	<cache:annotation-driven />
 	<context:property-placeholder location="classpath:mongo.properties" />
 
-
-	<bean id="customerService" class="com.springdata.springdatamongodbrestfulehcache.service.CustomerServiceImpl" />
-
 	<!-- CACHE CONFIGURATION -->
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="ehcache" />
@@ -26,9 +23,9 @@
 		<property name="shared" value="true" />
 	</bean>
 	<jaxrs:server id="services"
-		address="/SpringDataMongoDBRESTFulEhcache/customerService">
+		address="/SpringDataMongoDBRESTFulEhcache/userService">
 		<jaxrs:serviceBeans>
-			<ref bean="customerService" />
+			<ref bean="userService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />

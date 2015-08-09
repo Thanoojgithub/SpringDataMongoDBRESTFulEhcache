@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.springdata.springdatamongodbrestfulehcache.vo.User;
 
 @Path("/services")
-public interface CustomerService {
+public interface UserService {
 
 	public static final String MEDIATYPE_CHARSET = MediaType.APPLICATION_JSON + ";charset=utf-8";
 
